@@ -1,0 +1,32 @@
+.header{
+    border: 1px solid black;
+    outline-style: groove;
+    outline-color: #0033CC;
+	background-color: white;
+}
+
+.profile{
+	border: 1px solid black;
+	outline-style: groove;
+	outline-color: #0033CC;
+	margin-top: 5%;
+	display: block;
+	height: 400px; 
+	width: 50%;
+	font-size: 145%;
+	background-color: white;
+	
+}
+
+.edit{
+	display: none;
+}
+
+.info{
+	color: green;
+}
+
+.link {
+    font-size: 16px;
+    padding: 0px 10px 0px 10px;
+}
