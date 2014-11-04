@@ -47,7 +47,8 @@
             <td>{{ event.user_id.user.username }}</td>
             <td>{{ event.sensor_triggered.sensor_name }}</td>
             <td><a href="{{ event.event_image.url }}"
-                   onClick="openImage({{ event.event_image.url }}, {{ event.event_type.eventType_name }});">Image</a></td>
+                   onclick="window.open('{{ event.event_image.url }}', '{{ event.event_type.eventType_name }}',
+                           'width=300, height=250'); return false;">Image</a></td>
         </tr>
     {% endfor %}
 {% else %}

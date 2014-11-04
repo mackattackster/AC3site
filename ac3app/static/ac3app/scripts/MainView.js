@@ -86,8 +86,3 @@ function getKeys(o) {
     }
     return data;
 }
-
-function openImage(url, winName) {
-    var settings = 'width=650,height=500';
-    window.open(url, winName, settings);
-}
