@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from ac3app.models import Sensor
+from ac3app.models import Sensor, EventType
 '''
 Currently the way that FilterForm is defined the fields for the form
 will be initialized on a server start. So any changes to our choice
@@ -26,24 +26,30 @@ def get_sensor_choices():
     return senPairs
 
 
+def get_event_choices():
+    eventTypes = EventType.objects.all()
+    eventPairs = list()
+    for eventType in eventTypes:
+        eventPairs.append((eventType.id, eventType.eventType_name))
+    return eventPairs
+
+
+def get_user_choices():
+    users = User.objects.all()
+    userPairs = list()
+    for user in users:
+        if user.first_name != "":
+            userPairs.append((user.id, user.first_name + " " + user.last_name))
+    return userPairs
+
+
 class FilterForm(forms.Form):
-    user_choices = forms.CharField(max_length=128)
+    user_choices = forms.ChoiceField(choices=get_user_choices())
     date1 = forms.DateField(widget=forms.TextInput(
         attrs={'id': 'datepicker1'}
     ))
     date2 = forms.DateField(widget=forms.TextInput(
         attrs={'id': 'datepicker2'}
     ))
-    event_choices = forms.ChoiceField()
+    event_choices = forms.ChoiceField(choices=get_event_choices())
     sensor_choices = forms.ChoiceField(choices=get_sensor_choices())
-
-
-def get_user_choices():
-    #TODO Add logic for getting user choices
-    users = User.objects.all()
-    return None
-
-
-def get_event_choices():
-    #TODO Add logic for getting event choices
-    return None
