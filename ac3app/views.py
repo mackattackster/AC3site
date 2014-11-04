@@ -26,6 +26,7 @@ def main_view(request):
     context = {'latest_events': latest_events, 'latest_events_json': latest_events_json}
     return render(request, 'ac3app/MainView.html', context)
 
+
 @login_required(login_url='/ac3app/')
 def profile_view(request):
     requesting_user = User.objects.get_by_natural_key(request.user)
