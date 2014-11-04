@@ -1,5 +1,6 @@
 from django import forms
-
+from django.contrib.auth.models import User
+from ac3app.models import Sensor
 '''
 Currently the way that FilterForm is defined the fields for the form
 will be initialized on a server start. So any changes to our choice
@@ -17,25 +18,29 @@ Depending on how often it is called it may cause performance issues.
 '''
 
 
+def get_sensor_choices():
+    sensors = Sensor.objects.all()
+    senPairs = list()
+    for sensor in sensors:
+        senPairs.append((sensor.id, sensor.sensor_name))
+    return senPairs
+
+
 class FilterForm(forms.Form):
-    user_choices = forms.ChoiceField()
+    user_choices = forms.CharField(max_length=128)
     date1 = forms.DateField(widget=forms.TextInput(
-        attrs={'class': 'datepicker'}
+        attrs={'id': 'datepicker1'}
     ))
-    date2 = forms.DateField(widge=forms.TextInput(
-        attrs={'class': 'datepicker'}
+    date2 = forms.DateField(widget=forms.TextInput(
+        attrs={'id': 'datepicker2'}
     ))
     event_choices = forms.ChoiceField()
-    sensor_choices = forms.ChoiceField()
+    sensor_choices = forms.ChoiceField(choices=get_sensor_choices())
 
 
 def get_user_choices():
     #TODO Add logic for getting user choices
-    return None
-
-
-def get_sensor_choices():
-    #TODO Add logic for getting sensor choices
+    users = User.objects.all()
     return None
 
 

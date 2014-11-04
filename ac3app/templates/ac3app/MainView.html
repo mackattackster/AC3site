@@ -5,6 +5,7 @@
       <link rel="SHORTCUT ICON" href="../../static/ac3app/images/AC3-logo.ico">
 	  <link rel="stylesheet" type="text/css" href="../../static/ac3app/stylesheets/MainView.css">
       <script src="../../static/ac3app/jqplot/jquery.min.js"></script>
+      <script src="../../static/ac3app/scripts/jquery-2.1.1.min.js"></script>
 	  <script src="../../static/ac3app/jqplot/jquery.jqplot.min.js"></script>
       <script src="../../static/ac3app/jqplot/jqplot.pieRenderer.min.js"></script>
       <link href="../../static/ac3app/jqplot/jquery.jqplot.min.css" type="text/css" rel="stylesheet"/>
@@ -81,6 +82,13 @@ Date2: <img src="../../static/ac3app/images/calendar.ico" style="width:30px;heig
     </div>
 </div>
 </center>
+</form>
+<form id="filter_form" method="post" action="#">
+    {% csrf_token %}
+    {% for field in form %}
+        {{ field }}
+    {% endfor %}
+<input type="submit" name="filter" value="Filter" />
 </form>
 <input type="hidden" id="eventJSON" name="events" value="{{ latest_events_json }}" />
 </body>
