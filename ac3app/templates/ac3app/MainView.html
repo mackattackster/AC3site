@@ -46,9 +46,13 @@
             <td>{{ event.time_created }}</td>
             <td>{{ event.user_id.user.username }}</td>
             <td>{{ event.sensor_triggered.sensor_name }}</td>
+            {% if event.event_image.url != None %}
             <td><a href="{{ event.event_image.url }}"
                    onclick="window.open('{{ event.event_image.url }}', '{{ event.event_type.eventType_name }}',
                            'width=300, height=250'); return false;">Image</a></td>
+            {% else %}
+            <td></td>
+            {% endif %}
         </tr>
     {% endfor %}
 {% else %}

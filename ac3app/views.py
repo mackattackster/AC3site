@@ -6,7 +6,7 @@ from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-import emails
+from ac3app import emails
 
 
 def index(request):
