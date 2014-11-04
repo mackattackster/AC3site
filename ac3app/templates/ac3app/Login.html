@@ -16,16 +16,13 @@
           <h1>Welcome to AC3 Home Security Management</h1>
 		  <table bgcolor='white' align="center">
 		  <tbody>
-                <form id="login_form" method="post" action="/ac3app/login/" >
             {% csrf_token %}
             Username: <input type="text" name="username" value="" size="50" />
             <br />
             Password: <input type="password" name="password" value="" size="50" />
             <br />
-
             <input type="submit" name="login_sub" value="Submit" />
             <input type="submit" name="forgot_password_sub" value="Forgot Password?" />
-    </form>
              <!-- <tr>
                 <td width="50%"><B>User Name:</B></td>
                 <td style="border: solid 1px"><input type="text" autocomplete="off" name="username" /></td>
