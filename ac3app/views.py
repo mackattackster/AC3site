@@ -17,6 +17,9 @@ def index(request):
         pass
     return render(request, 'ac3app/login.html')
 
+@login_required(login_url='/ac3app/')
+def new_pass(request):
+    return render(request, 'ac3app/MainView.html')
 
 @login_required(login_url='/ac3app/')
 def main_view(request):
