@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, url
-from ac3app import views
-from ac3app import emails
+from ac3app import views, emails, filterView
 import AC3site.settings
 
 
@@ -12,6 +11,7 @@ urlpatterns = patterns('',
                        url(r'^newpassword/$', views.new_pass, name='new_password'),
                        url(r'^logout/$', views.user_logout, name='logout'),
                        url(r'^forgotpassword/$', emails.forgot_password_email, name='forgotpassword'),
+                       url(r'^filter/$', filterView.filter_view, name='filter_view'),
                        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root':
                                                                                    AC3site.settings.MEDIA_ROOT})
                        )

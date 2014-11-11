@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from ac3app import emails
+from ac3app.filterForm import FilterForm
 
 
 def index(request):
@@ -23,10 +24,11 @@ def new_pass(request):
 
 @login_required(login_url='/ac3app/')
 def main_view(request):
+    form = FilterForm(request.POST)
     latest_events = Event.objects.order_by('-date_created')[:5]
     latest_events_json = serializers.serialize('json', Event.objects.all(), use_natural_foreign_keys=True,
                                                use_natural_primary_keys=True)
-    context = {'latest_events': latest_events, 'latest_events_json': latest_events_json}
+    context = {'latest_events': latest_events, 'latest_events_json': latest_events_json, 'form': form}
     return render(request, 'ac3app/MainView.html', context)
 
 

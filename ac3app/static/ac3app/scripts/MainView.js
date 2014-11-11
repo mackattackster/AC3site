@@ -5,6 +5,13 @@ $(function() {
  $(function() {
     $( "#date2" ).datepicker();
   });
+
+$(function() {
+    $("#datepicker1").datepicker();
+})
+$(function() {
+    $("#datepicker2").datepicker();
+})
   
  $( "#sensor" ).selectmenu();
  
