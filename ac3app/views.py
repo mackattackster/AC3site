@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from ac3app.models import Event, UserProfile, UserSession
 from django.contrib.auth import logout, authenticate, login
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+from ac3app.models import Event
 from ac3app import emails
-from ac3app.filterForm import FilterForm
+from forms.filterForm import FilterForm
 
 
 def index(request):

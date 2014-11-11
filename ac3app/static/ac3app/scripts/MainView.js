@@ -93,3 +93,29 @@ function getKeys(o) {
     }
     return data;
 }
+
+$('#filter_but').click(function(){
+    var eventRequest;
+    eventRequest = getFilter();
+    $.get('ac3app/filter/', {eventsFilter: eventRequest}, function(data){
+        $('#table').html(data);
+    })
+});
+
+function filterOnClick() {
+    var eventRequest = getFilter();
+    $.get('../filter/', eventRequest, function(data) {
+        $('#test').html(data);
+    })
+}
+
+function getFilter() {
+    var filter = {
+        username: document.getElementById('id_user_choices').value,
+        sensor: document.getElementById('id_sensor_choices').value,
+        event: document.getElementById('id_event_choices').value,
+        date1: document.getElementById('datepicker1').value,
+        date2: document.getElementById('datepicker2').value
+    };
+    return filter;
+}
