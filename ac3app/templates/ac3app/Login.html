@@ -5,8 +5,8 @@
       <title>AC3 Login</title>
       <link rel="SHORTCUT ICON" href="../../static/ac3app/images/AC3-logo.ico">
 	  <link rel="stylesheet" type="text/css" href="../../static/ac3app/stylesheets/Login.css">
-     <!-- <script src="../../static/ac3app/jqplot/jquery.min.js"></script>
-      <script type="text/javascript" src="../../static/ac3app/scripts/Login.js"></script> -->
+      <script src="../../static/ac3app/jqplot/jquery.min.js"></script>
+      <script type="text/javascript" src="../../static/ac3app/scripts/Login.js"></script>
      </head>
      <Center>
 		<form id="login_form" method="post" action="/ac3app/login/" autocomplete="off">
@@ -15,23 +15,14 @@
          <img src="../../static/ac3app/images/AC3-logo.png" align="center" style="width:304px;height:228px">
           <h1>Welcome to AC3 Home Security Management</h1>
 		  <table bgcolor='white' align="center">
-		  <tbody>
             {% csrf_token %}
-            Username: <input type="text" name="username" value="" size="50" />
-            <br />
-            Password: <input type="password" name="password" value="" size="50" />
-            <br />
-            <input type="submit" name="login_sub" value="Submit" />
-            <input type="submit" name="forgot_password_sub" value="Forgot Password?" />
-             <!-- <tr>
-                <td width="50%"><B>User Name:</B></td>
-                <td style="border: solid 1px"><input type="text" autocomplete="off" name="username" /></td>
-              </tr>
-				  <td width="50%"><B>User Password:</B></td>
-				  <td style="border: solid 1px"><input type="text" autocomplete="off" name="userpassword" /></td>
-              </tr> -->
-		  </tbody>
+            <tr><td>Username: </td><td><input type="text" name="username" value="" size="30" /></td></tr>
+            <tr><td>Password: </td><td><input type="password" name="password" value="" size="30" /></td></tr>
 		  </table>
+          <input type="submit" name="login_sub" value="Submit" /><br>
+          <a href='#' id="f_link">Forgot Password?</a><br>
+          <label class="hfields">A temporary password will be sent to username's email</label><br>
+          <input class="hfields" type="submit" name="forgot_password_sub" value="Send Email" /><br>
             <div>
                 {% if messages %}
                     <ul class="messages">
@@ -45,21 +36,6 @@
                     </ul>
                 {% endif %}
             </div>
-            <!--
-              <a href="#" id="f_link">Forgot Password</a>
-              <div>
-                  <input type="submit" id="blogin" value="Login" />
-              </div>
-              <div class="hfields" style="display: none">
-                  <div><Font color="blue"><span>Send Password to a Registered Email</span></Font></div>
-                  <div>
-                  <span>Email: </span>
-                  <span style="border: 1px"><input id="email" type="text" autocomplete="off" name="email" /></span>
-                  </div>
-                  <div><input type="submit" id="bsendemail" value="Send Email" /></div>
-                  <Font color="red"><span id="error" style="display: none">Please Enter Valid Email</span></Font>
-				  <Font color="blue"><span id="emailconf" style="display: none">Your Password Has Been Sent To Your Email</span></Font>
-              </div> -->
 		</div>
          </body>
 		</form>

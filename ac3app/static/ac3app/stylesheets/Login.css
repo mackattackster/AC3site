@@ -19,6 +19,10 @@ label{
     align-content: center;
 }
 
+.hfields{
+    display: none;
+}
+
 .error
 {
     color: red;
