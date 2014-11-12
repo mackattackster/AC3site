@@ -10,6 +10,9 @@
 	background-color: white;
 }
 
+label{
+    color: green;
+}
 .messages
 {
     list-style-type: none;

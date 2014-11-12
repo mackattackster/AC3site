@@ -9,6 +9,7 @@ class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     user_pin = models.IntegerField(max_length=5, default=1234)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
+    hasTempPassword = models.BooleanField(default=False)
 
     def natural_key(self):
         return self.user.username
