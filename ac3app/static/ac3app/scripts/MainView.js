@@ -104,8 +104,21 @@ $('#filter_but').click(function(){
 
 function filterOnClick() {
     var eventRequest = getFilter();
-    $.get('../filter/', eventRequest, function(data) {
-        $('#test').html(data);
+    $('#tableBody').children().remove();
+
+    jQuery.ajax({
+        type: "GET",
+        url: '../filter/',
+        data: eventRequest,
+        beforeSend: function() {
+            $('#tableEvents').addClass('tableLoading');
+            $('#filter_but').prop("disabled",true);
+        },
+        success: function(data) {
+            $('#tableBody').append(data);
+            $('#tableEvents').removeClass('tableLoading');
+            $('#filter_but').prop("disabled",false);
+        }
     })
 }
 
@@ -117,5 +130,10 @@ function getFilter() {
         date1: document.getElementById('datepicker1').value,
         date2: document.getElementById('datepicker2').value
     };
+    for (var e in filter) {
+        if (e == 0) {
+            filter.removeAttr(e);
+        }
+    }
     return filter;
 }

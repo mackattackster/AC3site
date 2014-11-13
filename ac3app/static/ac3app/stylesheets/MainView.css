@@ -48,6 +48,14 @@ label{
 	font-weight: bold;
 }
 
+.tableLoading {
+    opacity: 0.4;
+    position: absolute;
+    background: #000000 url("../images/ajax-loader-blackbackground.gif") no-repeat center;
+    width: 404px;
+    height: 455px;
+}
+
 /* EVERYTHING BELOW WILL CHANGE */
 table, th {
     border: 1px solid black;
