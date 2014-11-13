@@ -22,7 +22,7 @@
 <tr>
 <td><img src="../../static/ac3app/images/AC3-logo.png" align="left" style="width:100px;height:100px"></td>
     {% if user.is_authenticated %}
-        <td align="center"><font size="8"><bold>Welcome {{ user.username }}</bold></font></td>
+        <td align="center"><font size="8"><bold>Welcome <label>{{ user.username }}</label></bold></font></td>
     {% else %}
         <td align="center"><font size="8"><bold>Welcome Unknown User</bold></font></td>
     {% endif %}

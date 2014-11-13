@@ -13,6 +13,10 @@
 	display: table-cell;
 }
 
+label{
+    color: green;
+}
+
 .SensorChart{
 	border: 6px solid black;
 	width: 400px;

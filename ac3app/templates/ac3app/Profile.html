@@ -11,7 +11,7 @@
 <tr>
 <td><img src="../../static/ac3app/images/AC3-logo.png" align="left" style="width:100px;height:100px"></td>
     {% if user.is_authenticated %}
-        <td align="center"><font size="8"><bold>Welcome {{ user.username }}</bold></font></td>
+        <td align="center"><font size="8"><bold>User: <label>{{ user.username }}</label></bold></font></td>
     {% else %}
         <td align="center"><font size="8"><bold>Welcome Unknown User</bold></font></td>
     {% endif %}
@@ -21,21 +21,26 @@
 </tr>
 </table>
 <body bgcolor='#3488C4'>
-<form action='#'>
+<form action='.' method="post">
+    {% csrf_token %}
 <Center>
 <div class="profile">
 <table>
 <caption><bold><font size="6" color="blue">Profile Information</font></bold></caption>
-<tr><td>User ID: </td><td><label class="info">{{ user.id }}</label></td></tr>
-<tr><td>Privilege Level: </td><td><label class="info">{{ user.is_staff }}</label></td></tr>
-<tr><td>First name: </td><td><label class="info">{{ user.first_name }}</label><input class="edit" type="text" name="firstname"/></td></tr>
-<tr><td>Last name: </td><td><label class="info">{{ user.last_name }}</label><input class="edit" type="text" name="lastname"/></td></tr>
-<tr><td>User name: </td><td><label class="info">{{ user.username }}</label><input class="edit" type="text" name="username"/></td></tr>
-<tr><td>Password: </td><td><label class="info">Hidden</label><input class="edit" type="text" name="password"/></td></tr>
-<tr><td>Email: </td><td><label class="info">{{ user.email }}</label><input class="edit" type="text" name="email"/></td></tr>
-<tr><td>Phone Number: </td><td><label class="info">77635124554</label><input class="edit" type="text" name="phonenumber"/></td></tr>
+<tr><td>User ID: </td><td>{{ user.id }}</td></tr>
+<tr><td>Is Staff: </td><td>{{ user.is_staff }}</td></tr>
+<tr><td>First name: </td><td><label class="info">{{ user.first_name }}</label><input class="edit" type="text" name="firstname" value="{{ user.first_name }}"/></td></tr>
+<tr><td>Last name: </td><td><label class="info">{{ user.last_name }}</label><input class="edit" type="text" name="lastname" value="{{ user.last_name }}"/></td></tr>
+<tr><td>Username: </td><td><label class="info">{{ user.username }}</label><input class="edit" type="text" name="username" value="{{ user.username }}"/></td></tr>
+<tr><td>User Pin: </td><td><label class="info">{{ userProfile.user_pin }}</label><input class="edit" type="text" name="userpin" value="{{ userProfile.user_pin }}"/></td></tr>
+<tr><td>Password: </td><td>*******<a class="link" href="{% url 'new_password' %}">Change Password</a></td></tr>
+<tr><td>Email: </td><td><label class="info">{{ user.email }}</label><input class="edit" type="text" name="email" value="{{ user.email }}"/></td></tr>
+<tr><td>Phone Number: </td><td><label class="info">{{ userProfile.phone_number }}</label><input class="edit" type="text" name="phonenumber" value="{{ userProfile.phone_number }}"/></td></tr>
 </table>
-<div style="margin-top: 5%"><input id="bEdit" type="submit" value="Edit"/><input type="submit" value="Save Changes"/></div>
+<div style="margin-top: 5%">
+    <button class="info" id="bEdit" onclick="return false">Edit</button>
+    <input class="edit" type="submit" value="Save Changes"/>
+</div>
 </div>
 </Center>
 </form>

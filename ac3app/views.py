@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from ac3app.models import Event, UserProfile, UserSession
 from django.contrib.auth import logout, authenticate, login
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+
+from models import Event, UserProfile
 from ac3app import emails
 from ac3app.filterForm import FilterForm
 from ac3app.passwordForm import PasswordForm
@@ -21,7 +22,6 @@ def index(request):
 
 @login_required(login_url='/ac3app/')
 def new_pass(request):
-    message = ''
     if request.method == 'POST':
         requesting_user = User.objects.get_by_natural_key(request.user)
         userProfile = UserProfile.objects.get(user = User.objects.get(username = requesting_user))
@@ -58,14 +58,6 @@ def main_view(request):
                                                use_natural_primary_keys=True)
     context = {'latest_events': latest_events, 'latest_events_json': latest_events_json, 'form': form}
     return render(request, 'ac3app/MainView.html', context)
-
-
-@login_required(login_url='/ac3app/')
-def profile_view(request):
-    requesting_user = User.objects.get_by_natural_key(request.user)
-    context = {'user': requesting_user}
-    return render(request, 'ac3app/profile.html', context)
-
 
 def login_view(request):
     if request.method == 'POST':

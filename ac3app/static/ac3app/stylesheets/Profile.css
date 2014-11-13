@@ -18,6 +18,10 @@
 	
 }
 
+label{
+    color: green;
+}
+
 .edit{
 	display: none;
 }
