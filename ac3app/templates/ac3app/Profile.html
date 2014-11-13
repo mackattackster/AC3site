@@ -16,7 +16,7 @@
         <td align="center"><font size="8"><bold>Welcome Unknown User</bold></font></td>
     {% endif %}
     <td align="center">
-        <a class="link" href="{% url 'main_view' %}">Main View</a><a class="link" href="{% url 'logout' %}">Logout</a>
+        <a class="link" href="{% url 'main_view' %}"><button>Main View</button></a><a class="link" href="{% url 'logout' %}"><button>Logout</button></a>
     </td>
 </tr>
 </table>
@@ -27,11 +27,22 @@
 <div class="profile">
 <table>
 <caption><bold><font size="6" color="blue">Profile Information</font></bold></caption>
+<tr><td>User Name: </td>
+{% if user.is_staff %}
+    <td><select>
+        <option value="{{ user.username }}" selected>{{ user.username }}</option>
+    {% for u in userslist %}
+        {% if u.username != user.username %}<option value="{{ u.username }}">{{ u.username }}</option>{% endif %}
+    {% endfor %}
+    </select></td>
+{% else %}
+    <td>{{ user.username }}</td>
+{% endif %}</tr>
+
 <tr><td>User ID: </td><td>{{ user.id }}</td></tr>
 <tr><td>Is Staff: </td><td>{{ user.is_staff }}</td></tr>
 <tr><td>First name: </td><td><label class="info">{{ user.first_name }}</label><input class="edit" type="text" name="firstname" value="{{ user.first_name }}"/></td></tr>
 <tr><td>Last name: </td><td><label class="info">{{ user.last_name }}</label><input class="edit" type="text" name="lastname" value="{{ user.last_name }}"/></td></tr>
-<tr><td>Username: </td><td><label class="info">{{ user.username }}</label><input class="edit" type="text" name="username" value="{{ user.username }}"/></td></tr>
 <tr><td>User Pin: </td><td><label class="info">{{ userProfile.user_pin }}</label><input class="edit" type="text" name="userpin" value="{{ userProfile.user_pin }}"/></td></tr>
 <tr><td>Password: </td><td>*******<a class="link" href="{% url 'new_password' %}">Change Password</a></td></tr>
 <tr><td>Email: </td><td><label class="info">{{ user.email }}</label><input class="edit" type="text" name="email" value="{{ user.email }}"/></td></tr>
