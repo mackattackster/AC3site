@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from ac3app.models import Event
 from ac3app import emails
-from ac3app.filterForm import FilterForm
 from ac3app.passwordForm import PasswordForm
 from forms.filterForm import FilterForm
 
@@ -21,6 +20,7 @@ def index(request):
         pass
     return render(request, 'ac3app/login.html')
 
+
 @login_required(login_url='/ac3app/')
 def new_pass(request):
     message = ''
@@ -29,7 +29,7 @@ def new_pass(request):
         userProfile = UserProfile.objects.get(user = User.objects.get(username = requesting_user))
         new = request.POST['nPassword']
         confirmed = request.POST['cPassword']
-        if(new == confirmed and len(new) > 5):
+        if new == confirmed and len(new) > 5:
             requesting_user.set_password(new)
             userProfile.hasTempPassword = False
             requesting_user.save()
@@ -41,16 +41,16 @@ def new_pass(request):
             #TODO: Need to find a way to remove secure logged in user cookie
             h.delete_cookie('logged')
             return h
-        elif(new != confirmed):
+        elif new != confirmed:
             messages.add_message(request, messages.ERROR, 'Passwords Do Not Match')
-        elif(len(new) < 5):
+        elif len(new) < 5:
             messages.add_message(request, messages.ERROR, 'Password Must Be Greater than 5 Characters')
         else:
             messages.add_message(request, messages.ERROR, 'Password Is Invalid')
     form = PasswordForm()
-    context = {"form": form,
-    }
+    context = {"form": form }
     return render(request, 'ac3app/NewPassword.html', context)
+
 
 @login_required(login_url='/ac3app/')
 def main_view(request):
@@ -79,10 +79,10 @@ def login_view(request):
 
             if user:
                 if user.is_active:
-                    userProfile = UserProfile.objects.get(user = user)
+                    userProfile = UserProfile.objects.get(user=user)
                     login(request, user)
                     request.session.set_expiry(300)
-                    if(userProfile.hasTempPassword):
+                    if userProfile.hasTempPassword:
                         h = HttpResponseRedirect('/ac3app/newpassword')
                     else:
                         h = HttpResponseRedirect('/ac3app/mainview')
