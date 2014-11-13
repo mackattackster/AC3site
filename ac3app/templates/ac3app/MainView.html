@@ -17,7 +17,7 @@
 </head>
 
 <body bgcolor='#3488C4'>
-<form id="filter_form" method="get" action="/ac3app/filter/">
+<form id="filter_form" action="return False">
 <table class="header" width="100%">
 <tr>
 <td><img src="../../static/ac3app/images/AC3-logo.png" align="left" style="width:100px;height:100px"></td>
@@ -34,9 +34,11 @@
 </table>
 <center>
 <div>
-<table bgcolor="#EEC966" class="events" border="5px">
+<div>
+<table id="eventTable" bgcolor="#EEC966" class="events" border="5px">
 <caption><bold><font size="5" color="blue">Events List</font></bold></caption>
-<tr><th>ID</th><th>Event Type</th><th>Date</th><th>Time</th><th>UserID</th><th>Sensor Triggered</th><th>Picture</th></tr>
+<tr id="tableHead"><th>ID</th><th>Event Type</th><th>Date</th><th>Time</th><th>UserID</th><th>Sensor Triggered</th><th>Picture</th></tr>
+<tbody id="tableBody">
 <!-- <tr><td>Hello</td><td>Hello</td><td>hello</td><td>Hello</td><td>Hello</td><td>Hello</td><td>Hello</td></tr>-->
 {% if latest_events %}
     {% for event in latest_events %}
@@ -59,7 +61,10 @@
 {% else %}
     <tr><span>No events are available.</span></tr>
 {% endif %}
+</tbody>
+<div id="tableEvents"></div>
 </table>
+</div>
 <div class="filter" border="5px">
 <caption><font size="5" color="blue"><bold>Filter Events</bold></font></caption><br>
     {% csrf_token %}
@@ -70,9 +75,10 @@ Date2: <img src="../../static/ac3app/images/calendar.ico" style="width:30px;heig
 <label id="Sensor">Triggered Sensor:</label>{{ form.sensor_choices }}
 <label style="margin-left:25px" for="Sensor">Event Type:</label>{{ form.event_choices }}
 <br>
-<input type="submit" value="Filter" name="filter_sub"><br>
+    <button id="filter_but" onclick="filterOnClick(); return false;">Filter</button>
+<!--<input type="submit" value="Filter" name="filter_sub">--><br>
 </div>
-</div>
+
 <div style="display: table;">
     <div style="display: table-row">
         <div class="UserChart" id="eventactors"></div>
@@ -81,8 +87,6 @@ Date2: <img src="../../static/ac3app/images/calendar.ico" style="width:30px;heig
 </div>
 </center>
 </form>
-<span id="test"></span>
-<button id="filter_but" onclick="filterOnClick()">Filter</button>
 <input type="hidden" id="eventJSON" name="events" value="{{ latest_events_json }}" />
 </body>
 </html>

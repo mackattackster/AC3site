@@ -21,6 +21,7 @@ Depending on how often it is called it may cause performance issues.
 def get_sensor_choices():
     sensors = Sensor.objects.all()
     senPairs = list()
+    senPairs.append((0, ""))
     for sensor in sensors:
         senPairs.append((sensor.id, sensor.sensor_name))
     return senPairs
@@ -29,6 +30,7 @@ def get_sensor_choices():
 def get_event_choices():
     eventTypes = EventType.objects.all()
     eventPairs = list()
+    eventPairs.append((0, ""))
     for eventType in eventTypes:
         eventPairs.append((eventType.id, eventType.eventType_name))
     return eventPairs
@@ -37,6 +39,7 @@ def get_event_choices():
 def get_user_choices():
     users = User.objects.all()
     userPairs = list()
+    userPairs.append((0, ""))
     for user in users:
         if user.first_name != "":
             userPairs.append((user.id, user.first_name + " " + user.last_name))
