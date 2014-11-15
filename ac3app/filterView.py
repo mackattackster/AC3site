@@ -6,7 +6,6 @@ from ac3app.models import Event
 
 @login_required
 def filter_view(request):
-    eventHtml = "Hello"
     if request.method == 'GET':
         try:
             filters = request.GET
@@ -19,7 +18,7 @@ def filter_view(request):
             h = HttpResponse(events)
             return h
         else:
-            return HttpResponse(eventHtml)
+            return HttpResponse()
     return HttpResponse("This is a test")
 
 
@@ -29,17 +28,17 @@ def get_filtered_events(filter):
     sensor = filter['sensor']
     date1 = filter['date1']
     date2 = filter['date2']
-
+    fil = toSQL(filter)
     #filEvents = Event.objects.filter(event_type=event).values()
     filEvents = Event.objects.filter(sensor_triggered_id=sensor)
     #filEvents = Event.objects.order_by('-date_created')
-    return toHtml(filEvents)
+    #return toHtml(filEvents)'
+    return fil
 
 
 # noinspection PyBroadException
 def toHtml(events):
     rows = ""
-    link = ""
     for event in events:
         try:
             link = formatLink(event.event_image.url)
@@ -57,3 +56,29 @@ def formatLink(link):
     l = "<a href=\"{0}\" onclick=\"window.open('{0}', 'Image', 'width=300, height=250'); return false;\"" \
         ">Image</a>".format(link)
     return l
+
+
+def toSQL(filters):
+    #Event.objects.raw("SQL")
+    #id date_created event_type_id sensor_triggered_id user_id_id
+    sql = "SELECT * FROM ac3app_event WHERE"
+    for fil in filters:
+        if filters[fil] != '0':
+            if fil == 'username':
+                sql += " user_id_id = {0} AND".format(filters[fil])
+            elif fil == 'sensor':
+                sql += " sensor_triggered_id = {0} AND".format(filters[fil])
+            elif fil == 'event':
+                sql += " event_type_id = {0} AND".format(filters[fil])
+        else:
+            t = 1
+    sql = sql[:-4]
+    temp = toHtml(Event.objects.raw(sql))
+    return temp
+
+
+def goThroughEvents(event):
+    s = {}
+    for e in event:
+        s += "{0}, {1}, {2}".format(e.id, e.event_type, e.sensor_triggered)
+    return s

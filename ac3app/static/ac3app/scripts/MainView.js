@@ -1,16 +1,10 @@
-$(function() {
-    $( "#date1" ).datepicker();
-  });
-  
- $(function() {
-    $( "#date2" ).datepicker();
-  });
+
 
 $(function() {
-    $("#datepicker1").datepicker();
+    $("#datepicker1").datepicker().datepicker("setDate", new Date());
 })
 $(function() {
-    $("#datepicker2").datepicker();
+    $("#datepicker2").datepicker().datepicker("setDate", new Date());
 })
   
  $( "#sensor" ).selectmenu();
