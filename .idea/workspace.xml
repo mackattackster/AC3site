@@ -552,7 +552,11 @@
       <created>1416093384195</created>
       <updated>1416093384195</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Got date ranges working. Need to add a check to makes sure that both dates are provided. The check should prevent the user from using the filter if only 1 date is provided.">
+      <created>1416093413059</created>
+      <updated>1416093413059</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
