@@ -23,16 +23,7 @@ def filter_view(request):
 
 
 def get_filtered_events(filter):
-    user = filter['username']
-    event = filter['event']
-    sensor = filter['sensor']
-    date1 = filter['date1']
-    date2 = filter['date2']
     fil = toSQL(filter)
-    #filEvents = Event.objects.filter(event_type=event).values()
-    filEvents = Event.objects.filter(sensor_triggered_id=sensor)
-    #filEvents = Event.objects.order_by('-date_created')
-    #return toHtml(filEvents)'
     return fil
 
 
@@ -70,15 +61,8 @@ def toSQL(filters):
                 sql += " sensor_triggered_id = {0} AND".format(filters[fil])
             elif fil == 'event':
                 sql += " event_type_id = {0} AND".format(filters[fil])
-        else:
-            t = 1
+    if filters['date1'] is not None and filters['date2'] is not None:
+        sql += " (date_created BETWEEN '{0}' AND '{1}') AND".format(filters['date1'], filters['date2'])
     sql = sql[:-4]
     temp = toHtml(Event.objects.raw(sql))
     return temp
-
-
-def goThroughEvents(event):
-    s = {}
-    for e in event:
-        s += "{0}, {1}, {2}".format(e.id, e.event_type, e.sensor_triggered)
-    return s

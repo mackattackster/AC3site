@@ -1,5 +1,4 @@
 
-
 $(function() {
     $("#datepicker1").datepicker().datepicker("setDate", new Date());
 })
@@ -8,7 +7,6 @@ $(function() {
 })
   
  $( "#sensor" ).selectmenu();
- 
  $( "#deactivated" ).selectmenu();
  
  $(document).ready(function(){
@@ -49,11 +47,10 @@ var data = JSON.parse(document.getElementById("eventJSON").value);
 
 function getSensorPercents(event) {
     var i, key;
-    var val
     var sensors = {};
     for (i = 0; i < event.length; ++i) {
         key = event[i]['fields']['sensor_triggered'];
-        if (event[i]['fields']['sensor_triggered'] && sensors[key] == val) {
+        if (event[i]['fields']['sensor_triggered'] && !sensors[key]) {
             sensors[key] = 1;
         }
         else {
@@ -65,11 +62,10 @@ function getSensorPercents(event) {
 
 function getUserPercent(user) {
     var i, key;
-    var val;
     var users = {};
     for (i = 0; i < user.length; ++i) {
         key = user[i]['fields']['user_id'];
-        if (user[i]['fields']['user_id'] && users[key] == val) {
+        if (user[i]['fields']['user_id'] && !users[key]) {
             users[key] = 1;
         }
         else {
@@ -125,8 +121,8 @@ function getFilter() {
         date2: document.getElementById('datepicker2').value
     };
     for (var e in filter) {
-        if (e == 0) {
-            filter.removeAttr(e);
+        if (filter[e] == '0' || filter[e] == '') {
+            delete filter[e];
         }
     }
     return filter;
