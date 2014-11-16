@@ -5,13 +5,22 @@
 	background-color: white;
 }
 
+#bCancel {
+    margin-left: 50px;
+}
+
+#name {
+    display: none;
+    visibility: hidden;
+}
+
 .profile{
 	border: 1px solid black;
 	outline-style: groove;
 	outline-color: #0033CC;
 	margin-top: 5%;
 	display: block;
-	height: 400px; 
+	height: 420px;
 	width: 50%;
 	font-size: 145%;
 	background-color: white;

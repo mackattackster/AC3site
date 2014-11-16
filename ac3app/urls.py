@@ -12,6 +12,7 @@ urlpatterns = patterns('',
                        url(r'^logout/$', views.user_logout, name='logout'),
                        url(r'^forgotpassword/$', emails.forgot_password_email, name='forgotpassword'),
                        url(r'^filter/$', filterView.filter_view, name='filter_view'),
+                       url(r'^profileAjax/$', profileview.profileAjax, name='profile_ajax'),
                        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root':
                                                                                    AC3site.settings.MEDIA_ROOT})
                        )
