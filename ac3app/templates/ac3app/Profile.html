@@ -16,7 +16,7 @@
         <td align="center"><font size="8"><bold>Welcome Unknown User</bold></font></td>
     {% endif %}
     <td align="center">
-        <a class="link" href="{% url 'main_view' %}"><button>Main View</button></a><a class="link" href="{% url 'logout' %}"><button>Logout</button></a>
+        <a class="button" href="{% url 'main_view' %}">Main View</a>    <a class="button" href="{% url 'logout' %}">Logout</a>
     </td>
 </tr>
 </table>
@@ -51,8 +51,8 @@
 <input id="name" type="text" name="name" value="{{ user.username }}"/>
 <div style="margin-top: 5%">
     <a class="link" href="{% url 'new_password' %}">Passwords Resets</a><br>
-    <button class="info" id="bEdit" onclick="return false">Edit</button>
-    <input class="edit" type="submit" value="Save Changes"/><button class="edit" id="bCancel">Cancel</button>
+    <button class="info button" id="bEdit" onclick="return false">Edit</button>
+    <input class="edit button" type="submit" value="Save Changes"/><button class="edit" id="bCancel">Cancel</button>
 </div>
 </div>
 </Center>
