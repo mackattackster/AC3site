@@ -28,8 +28,12 @@
     {% endif %}
     {% csrf_token %}
     <td align="center">
-        <a class="button" href="{% url 'profile' %}">Profile</a>
-        <a class="button" href="{% url 'logout' %}">Log Out</a>
+        {% if user.is_staff %}
+            <a class="button" href="{% url 'profile' %}">Edit Profiles</a>
+        {% else %}
+            <a class="button" href="{% url 'profile' %}">My Profile</a>
+        {% endif %}
+            <a class="button" href="{% url 'logout' %}">Log Out</a>
     </td>
 </tr>
 </table>

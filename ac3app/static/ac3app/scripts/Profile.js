@@ -11,10 +11,43 @@ $(document).ready(function() {
         $("#iphone").val($("#lphone").text())
     });
 
+    $("#bNew").click(function () {
+        $(".info").toggle();
+        $(".edit").toggle();
+        $(".id").hide();
+        $(".new").show();
+        $("#userselect").toggle();
+        $("#pass").toggle();
+        $("#save").toggle();
+    });
+
+    $("#bDelete").click(function () {
+        var r = confirm("Are you sure you want to delete User: ");
+        if (r == true) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+
     $("#bCancel").click(function () {
         $(".info").toggle();
         $(".edit").toggle();
+        if($(".new").css('display') != 'none')//Check if cancelling create user
+        {
+            $("#save").toggle();
+            $("#pass").toggle();
+            $(".new").toggle();
+            $("#userselect").toggle();
+        }
         $("#userselect").prop('disabled', false)
+
+        $("#ifirst").val('');
+        $("#ilast").val('');
+        $("#ipin").val('')
+        $("#iemail").val('')
+        $("#iphone").val('')
         return false;
     });
 });
