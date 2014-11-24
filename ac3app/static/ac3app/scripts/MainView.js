@@ -93,3 +93,47 @@ function getKeys(o) {
     }
     return data;
 }
+
+$('#filter_but').click(function(){
+    var eventRequest;
+    eventRequest = getFilter();
+    $.get('ac3app/filter/', {eventsFilter: eventRequest}, function(data){
+        $('#table').html(data);
+    })
+});
+
+function filterOnClick() {
+    var eventRequest = getFilter();
+    $('#tableBody').children().remove();
+
+    jQuery.ajax({
+        type: "GET",
+        url: '../filter/',
+        data: eventRequest,
+        beforeSend: function() {
+            $('#tableEvents').addClass('tableLoading');
+            $('#filter_but').prop("disabled",true);
+        },
+        success: function(data) {
+            $('#tableBody').append(data);
+            $('#tableEvents').removeClass('tableLoading');
+            $('#filter_but').prop("disabled",false);
+        }
+    })
+}
+
+function getFilter() {
+    var filter = {
+        username: document.getElementById('id_user_choices').value,
+        sensor: document.getElementById('id_sensor_choices').value,
+        event: document.getElementById('id_event_choices').value,
+        date1: document.getElementById('datepicker1').value,
+        date2: document.getElementById('datepicker2').value
+    };
+    for (var e in filter) {
+        if (e == 0) {
+            filter.removeAttr(e);
+        }
+    }
+    return filter;
+}

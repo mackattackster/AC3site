@@ -90,7 +90,7 @@ STATIC_URL = '/static/'
 
 # Media files that will be uploaded from events
 
-MEDIA_ROOT = 'C:/Users/Chris/PycharmProjects/AC3site/ac3app/media'
+MEDIA_ROOT = 'add your path'
 
 MEDIA_URL = "http://localhost:8000/ac3app/media/"
 
