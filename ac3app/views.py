@@ -9,7 +9,7 @@ from django.contrib import messages
 from ac3app.models import Event
 from ac3app import emails
 from ac3app.passwordForm import PasswordForm
-from forms.filterForm import FilterForm
+from ac3app.filterForm import FilterForm
 
 
 def index(request):
@@ -23,24 +23,37 @@ def index(request):
 
 @login_required(login_url='/ac3app/')
 def new_pass(request):
-    message = ''
+    requesting_user = User.objects.get_by_natural_key(request.user)
+    request_userProfile = UserProfile.objects.get(user = requesting_user)
     if request.method == 'POST':
-        requesting_user = User.objects.get_by_natural_key(request.user)
-        userProfile = UserProfile.objects.get(user = User.objects.get(username = requesting_user))
+        if 'Cancel' in request.POST:
+            return HttpResponseRedirect('/ac3app/profile/')
+
+        name = request.POST.get('chooseuser', None)
+
+        if((requesting_user.is_staff and name == requesting_user.username) or name == None):
+            name = requesting_user.username
+
+        user = User.objects.get_by_natural_key(username = name)
+        userProfile = UserProfile.objects.get(user = user)
         new = request.POST['nPassword']
         confirmed = request.POST['cPassword']
         if new == confirmed and len(new) > 5:
-            requesting_user.set_password(new)
+            user.set_password(new)
             userProfile.hasTempPassword = False
-            requesting_user.save()
+            user.save()
             userProfile.save()
-            logout(request)
-            request.session.flush()
-            messages.add_message(request, messages.SUCCESS, 'You Have Successfully Changed Your Password')
-            h = HttpResponseRedirect('/ac3app/')
-            #TODO: Need to find a way to remove secure logged in user cookie
-            h.delete_cookie('logged')
-            return h
+
+            if(requesting_user.username == name):
+                logout(request)
+                request.session.flush()
+                messages.add_message(request, messages.SUCCESS, 'You Have Successfully Changed Your Password')
+                h = HttpResponseRedirect('/ac3app/')
+                #TODO: Need to find a way to remove secure logged in user cookie
+                h.delete_cookie('logged')
+                return h
+            else:
+                return HttpResponseRedirect('/ac3app/profile/')
         elif new != confirmed:
             messages.add_message(request, messages.ERROR, 'Passwords Do Not Match')
         elif len(new) < 5:
@@ -48,7 +61,9 @@ def new_pass(request):
         else:
             messages.add_message(request, messages.ERROR, 'Password Is Invalid')
     form = PasswordForm()
-    context = {"form": form }
+    context = {"form": form,
+               "profile": request_userProfile
+    }
     return render(request, 'ac3app/NewPassword.html', context)
 
 
@@ -60,14 +75,6 @@ def main_view(request):
                                                use_natural_primary_keys=True)
     context = {'latest_events': latest_events, 'latest_events_json': latest_events_json, 'form': form}
     return render(request, 'ac3app/MainView.html', context)
-
-
-@login_required(login_url='/ac3app/')
-def profile_view(request):
-    requesting_user = User.objects.get_by_natural_key(request.user)
-    context = {'user': requesting_user}
-    return render(request, 'ac3app/profile.html', context)
-
 
 def login_view(request):
     if request.method == 'POST':
