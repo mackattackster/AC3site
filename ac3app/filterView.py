@@ -61,8 +61,11 @@ def toSQL(filters):
                 sql += " sensor_triggered_id = {0} AND".format(filters[fil])
             elif fil == 'event':
                 sql += " event_type_id = {0} AND".format(filters[fil])
-    if filters['date1'] is not None and filters['date2'] is not None:
-        sql += " (date_created BETWEEN '{0}' AND '{1}') AND".format(filters['date1'], filters['date2'])
+    try:
+        if filters['date1'] is not None and filters['date2'] is not None:
+            sql += " (date_created BETWEEN '{0}' AND '{1}') AND".format(filters['date1'], filters['date2'])
+    except KeyError:
+        sql += ""
     sql = sql[:-4]
     temp = toHtml(Event.objects.raw(sql))
     return temp
